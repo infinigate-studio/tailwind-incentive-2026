@@ -8,7 +8,7 @@
   --bg-card: #21576E;
   --bg-card-hover: #2a6a85;
   --accent-green: #09AD6C;
-  --accent-teal: #26BDBD;
+  --accent-yellow: #EBA800;
   --accent-cyan: #009FC7;
   --accent-light: #FCFCFC;
   --accent-coral: #ED5740;
@@ -42,7 +42,7 @@
 body {
   font-family: var(--font-body);
   font-weight: 300;
-  background: #0E242E url(img/SPARK-Background-screen.svg) bottom center no-repeat;
+  background: #0E242E url(img/tailwind-website-background-2.png) top center no-repeat;
   background-size: 100%;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
@@ -50,12 +50,13 @@ body {
 }
 
 #root {
-  background: url(img/header-background.svg) top center no-repeat;
+  background: url(img//compass.svg) top left no-repeat;
+  background-size: 180px;
   min-height: 100vh;
 }
 
 a {
-  color: var(--accent-teal);
+  color: var(--accent-yellow);
   text-decoration: none;
 }
 
@@ -232,10 +233,11 @@ input, select {
   z-index: -1;
 }
 
-.row__bar-fill--1 { background: var(--accent-green); }
-.row__bar-fill--2 { background: var(--accent-teal); }
-.row__bar-fill--3 { background: var(--accent-cyan); }
-.row__bar-fill--default { background: var(--bg-card); }
+.row__bar-fill--1,
+.row__bar-fill--2,
+.row__bar-fill--3,
+.row__bar-fill--default { background: #6CCBE2; }
+
 
 /* Icon sits inside bar-fill, rides with the bar as it grows */
 .row__icon {
@@ -249,8 +251,8 @@ input, select {
 
 /* Spaceship icons — horizontal/landscape orientation */
 .row__icon--spaceship {
-  height: 52px;
-  width: 80px;
+  height: 70px;
+  width: 100px;
 }
 
 /* Spaceman icons — vertical/portrait orientation, bigger */
@@ -390,7 +392,7 @@ input, select {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 16px;
-  color: var(--accent-teal);
+  color: var(--accent-yellow);
 }
 
 /* Admin Table */
@@ -405,8 +407,8 @@ input, select {
   padding: 10px 12px;
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--bg-card);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--bg-card-hover);
 }
 
 .admin-table td {
@@ -436,7 +438,7 @@ input, select {
 .admin-form__field label {
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .admin-form__field input {
@@ -451,7 +453,7 @@ input, select {
 }
 
 .admin-form__field input:focus {
-  border-color: var(--accent-teal);
+  border-color: var(--accent-yellow);
 }
 
 /* Buttons */
@@ -472,7 +474,7 @@ input, select {
 }
 
 .btn--primary {
-  background: var(--accent-green);
+  background: var(--accent-coral);
   color: #fff;
 }
 
@@ -492,7 +494,7 @@ input, select {
 }
 
 .btn--logout {
-  background: transparent;
+  background: white;
   border: 1px solid var(--text-secondary);
   color: var(--text-secondary);
 }
@@ -554,7 +556,7 @@ input, select {
 }
 
 .login__field input:focus {
-  border-color: var(--accent-teal);
+  border-color: var(--accent-yellow);
 }
 
 .login__btn {
@@ -647,7 +649,7 @@ input, select {
    ============================================ */
 
 *:focus-visible {
-  outline: 2px solid var(--accent-teal);
+  outline: 2px solid var(--accent-yellow);
   outline-offset: 2px;
 }
 

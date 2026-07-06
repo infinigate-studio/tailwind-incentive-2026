@@ -2,14 +2,12 @@ import Header from '../components/Header';
 import LeaderboardPanel from '../components/LeaderboardPanel';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import { useSiteSettings } from '../hooks/useSiteSettings';
-import spacemanBlue from '../img/spaceman_blue.svg';
-import spacemanCoral from '../img/spaceman_coral.svg';
-import spacemanTeal from '../img/spaceman_teal.svg';
-import spacemanCyan from '../img/spaceman_cyan.svg';
-import spaceshipBlue from '../img/spaceship_ blue.svg';
-import spaceshipCoral from '../img/spaceship_coral.svg';
-import spaceshipTeal from '../img/spaceship_teal.svg';
-import spaceshipCyan from '../img/spaceship_cyan.svg';
+import sailboat from '../img/sailboat.svg';
+import seahorse from '../img/seahorse.svg';
+import seahorseCoral from '../img/seahorse-coral.svg';
+import seahorseTeal from '../img/seahorse-teal.svg';
+import octopus from '../img/octopus.svg';
+import turtle from '../img/turtle.svg';
 
 export default function LeaderboardPage() {
   const { accountManagers, salesTeams, loading, changedIds } = useLeaderboardData();
@@ -34,10 +32,10 @@ export default function LeaderboardPage() {
           entries={accountManagers}
           changedIds={changedIds}
           icons={{
-            1: spacemanCoral,
-            2: spacemanTeal,
-            3: spacemanCyan,
-            default: spacemanBlue,
+            1: sailboat,
+            2: sailboat,
+            3: sailboat,
+            default: sailboat,
           }}
           iconType="spaceman"
         />
@@ -46,10 +44,11 @@ export default function LeaderboardPage() {
           entries={salesTeams}
           changedIds={changedIds}
           icons={{
-            1: spaceshipCoral,
-            2: spaceshipTeal,
-            3: spaceshipCyan,
-            default: spaceshipBlue,
+            1: seahorse,
+            2: seahorseCoral,
+            3: seahorseTeal,
+            4: octopus,
+            default: turtle,
           }}
           iconType="spaceship"
         />

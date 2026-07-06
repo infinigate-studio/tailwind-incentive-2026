@@ -6,6 +6,7 @@ export interface IconMap {
   1?: string;
   2?: string;
   3?: string;
+  4?: string;
   default: string;
 }
 
@@ -48,7 +49,7 @@ export default function LeaderboardPanel({ title, entries, changedIds, icons, ic
             rank={i + 4}
             highlighted={changedIds.has(entry.id)}
             maxScore={maxScore}
-            icon={icons.default}
+            icon={getIcon(i + 4)}
             iconType={iconType}
           />
         ))}
