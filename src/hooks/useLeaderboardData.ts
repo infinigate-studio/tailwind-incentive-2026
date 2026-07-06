@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { LEADERBOARD_TABLE } from '../lib/tables';
 import { mockEntries } from '../lib/mockData';
 import type { LeaderboardEntry, Team } from '../lib/types';
 
@@ -27,7 +28,7 @@ export function useLeaderboardData() {
 
     // Initial fetch
     supabase
-      .from('leaderboard_entries')
+      .from(LEADERBOARD_TABLE)
       .select('*')
       .then(({ data, error }) => {
         if (!error && data) {
@@ -44,7 +45,7 @@ export function useLeaderboardData() {
       .channel('leaderboard-changes')
       .on(
         'postgres_changes',
-        { event: '*', schema: 'public', table: 'leaderboard_entries' },
+        { event: '*', schema: 'public', table: LEADERBOARD_TABLE },
         (payload) => {
           if (payload.eventType === 'INSERT') {
             const newEntry = payload.new as LeaderboardEntry;

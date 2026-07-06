@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { SETTINGS_TABLE } from '../lib/tables';
 
 export interface SiteSettings {
   page_title: string;
@@ -24,7 +25,7 @@ export function useSiteSettings() {
     }
 
     supabase
-      .from('site_settings')
+      .from(SETTINGS_TABLE)
       .select('*')
       .then(({ data, error }) => {
         if (!error && data && data.length > 0) {
@@ -46,7 +47,7 @@ export function useSiteSettings() {
       .channel('settings-changes')
       .on(
         'postgres_changes',
-        { event: '*', schema: 'public', table: 'site_settings' },
+        { event: '*', schema: 'public', table: SETTINGS_TABLE },
         (payload) => {
           if (payload.eventType === 'UPDATE' || payload.eventType === 'INSERT') {
             const row = payload.new as { key: string; value: string };
@@ -64,7 +65,7 @@ export function useSiteSettings() {
   async function updateSetting(key: keyof SiteSettings, value: string) {
     if (!isSupabaseConfigured) return;
     await supabase
-      .from('site_settings')
+      .from(SETTINGS_TABLE)
       .upsert({ key, value }, { onConflict: 'key' });
   }
 

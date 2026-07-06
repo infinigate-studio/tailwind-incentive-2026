@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { LEADERBOARD_TABLE } from '../lib/tables';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import { useAuth } from '../hooks/useAuth';
@@ -151,13 +152,13 @@ function TeamSection({ title, team, entries }: TeamSectionProps) {
 
     if (editId) {
       const { error: err } = await supabase
-        .from('leaderboard_entries')
+        .from(LEADERBOARD_TABLE)
         .update({ name: name.trim(), score: scoreNum })
         .eq('id', editId);
       if (err) { setError(err.message); return; }
     } else {
       const { error: err } = await supabase
-        .from('leaderboard_entries')
+        .from(LEADERBOARD_TABLE)
         .insert({ name: name.trim(), score: scoreNum, team });
       if (err) { setError(err.message); return; }
     }
@@ -181,7 +182,7 @@ function TeamSection({ title, team, entries }: TeamSectionProps) {
 
   async function handleDelete(id: string) {
     if (!window.confirm('Delete this entry?')) return;
-    await supabase.from('leaderboard_entries').delete().eq('id', id);
+    await supabase.from(LEADERBOARD_TABLE).delete().eq('id', id);
   }
 
   return (
