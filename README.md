@@ -19,13 +19,14 @@ set in `.env`.
 
 This app shares the Spark Leaderboard Supabase **project** but uses its own
 prefixed tables (`tailwind_leaderboard_entries`, `tailwind_site_settings`) so the
-two apps' data never mix. Row-level security restricts writes to admins enrolled
-for the `tailwind` app, so a Spark admin cannot edit Tailwind data (and, once
-Section 4 is applied, vice versa). To stand it up:
+two apps' data never mix. Access matches Spark: any signed-in user can administer
+the board, so every existing Spark admin can also log into the Tailwind `/admin`,
+and any user added later automatically gets access to both. To stand it up:
 
-1. In the Spark project's SQL editor, run Sections 1–3 of [`supabase-schema.sql`](./supabase-schema.sql). These only add objects and are safe for the live Spark app.
-2. Create each Tailwind admin under **Authentication → Users** (email + password), then enroll them with the `admin_roles` insert shown in the script.
-3. (Optional) To also block Tailwind admins from writing Spark's tables, follow the ordered warning in **Section 4** — enroll all current Spark admins first, then tighten the Spark policies.
+1. In the Spark project's SQL editor, run [`supabase-schema.sql`](./supabase-schema.sql) once. It only adds objects and is safe for the live Spark app.
+2. Make sure email sign-ups are **disabled** (Authentication → Providers → Email) so only dashboard-created accounts can log in.
+
+Admins are the same accounts already in the project — no per-user setup needed.
 
 The app reuses the Spark project's `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`
 (the anon key is a public client key). These are set both in `.env` locally and as
