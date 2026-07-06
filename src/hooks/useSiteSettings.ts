@@ -62,11 +62,12 @@ export function useSiteSettings() {
     };
   }, []);
 
-  async function updateSetting(key: keyof SiteSettings, value: string) {
-    if (!isSupabaseConfigured) return;
-    await supabase
+  async function updateSetting(key: keyof SiteSettings, value: string): Promise<{ error: string | null }> {
+    if (!isSupabaseConfigured) return { error: 'Supabase is not configured.' };
+    const { error } = await supabase
       .from(SETTINGS_TABLE)
       .upsert({ key, value }, { onConflict: 'key' });
+    return { error: error ? error.message : null };
   }
 
   return { settings, loading, updateSetting };

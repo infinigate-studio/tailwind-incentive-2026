@@ -54,7 +54,7 @@ export default function AdminPage() {
 
 interface SettingsSectionProps {
   settings: { page_title: string; panel_left_title: string; panel_right_title: string };
-  updateSetting: (key: 'page_title' | 'panel_left_title' | 'panel_right_title', value: string) => Promise<void>;
+  updateSetting: (key: 'page_title' | 'panel_left_title' | 'panel_right_title', value: string) => Promise<{ error: string | null }>;
 }
 
 function SettingsSection({ settings, updateSetting }: SettingsSectionProps) {
@@ -62,6 +62,7 @@ function SettingsSection({ settings, updateSetting }: SettingsSectionProps) {
   const [leftTitle, setLeftTitle] = useState(settings.panel_left_title);
   const [rightTitle, setRightTitle] = useState(settings.panel_right_title);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setPageTitle(settings.page_title);
@@ -71,11 +72,17 @@ function SettingsSection({ settings, updateSetting }: SettingsSectionProps) {
 
   async function handleSave(e: FormEvent) {
     e.preventDefault();
-    await Promise.all([
+    setError('');
+    const results = await Promise.all([
       updateSetting('page_title', pageTitle.trim()),
       updateSetting('panel_left_title', leftTitle.trim()),
       updateSetting('panel_right_title', rightTitle.trim()),
     ]);
+    const failed = results.find(r => r.error);
+    if (failed) {
+      setError(failed.error ?? 'Could not save settings.');
+      return;
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -118,6 +125,11 @@ function SettingsSection({ settings, updateSetting }: SettingsSectionProps) {
           {saved ? 'Saved' : 'Save'}
         </button>
       </form>
+      {error && (
+        <p style={{ color: 'var(--accent-coral, #e06)', marginTop: '8px', fontSize: '14px' }}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }
